@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto integrador</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">&#9776;</button>
+    <nav class="side-menu" id="sideMenu">
+        <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1>Bem-vindo ao Site do projeto integrador</h1>
+        <p>Este site tem como objetivo orientar as pessoas sobre saúde mental através de esportes.</p>
+    </main>
+    <script>
+        const sideMenu = document.getElementById('sideMenu');
+        const menuToggle = document.getElementById('menuToggle');
+
+        function openMenu() {
+            sideMenu.classList.add('show');
+        }
+        function closeMenu() {
+            sideMenu.classList.remove('show');
+        }
+
+        // Mobile: toggle menu with button
+        menuToggle.addEventListener('click', function() {
+            sideMenu.classList.toggle('show');
+        });
+
+        // Desktop: show menu on mouse near left edge
+        function handleMouse(e) {
+            if (window.innerWidth > 768) {
+                if (e.clientX < 40) {
+                    openMenu();
+                } else if (!sideMenu.matches(':hover')) {
+                    closeMenu();
+                }
+            }
+        }
+        document.body.addEventListener('mousemove', handleMouse);
+        sideMenu.addEventListener('mouseleave', function() {
+            if (window.innerWidth > 768) closeMenu();
+        });
+
+        // Optional: close menu when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768 && sideMenu.classList.contains('show')) {
+                if (!sideMenu.contains(e.target) && e.target !== menuToggle) {
+                    closeMenu();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
